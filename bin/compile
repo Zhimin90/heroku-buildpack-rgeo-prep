@@ -3,7 +3,7 @@
 
 echo "-----> Removing cached .bundle/config"
 
-if [ -f $2/.bundle/config ]; then 
+if [ -f $2/.bundle/config ]; then
   rm $2/.bundle/config
 fi
 
@@ -11,7 +11,7 @@ echo "       Writing new .bundle/config"
 
 mkdir -p $1/.bundle
 echo "---
-BUNDLE_BUILD__RGEO: --with-geos-dir=$1 --with-geos-lib=$1/lib --with-proj-dir=$1 --with-proj-lib=$1/lib
+BUNDLE_BUILD__RGEO: --with-opt-dir=$1 --with-geos-config=$1/bin/geos-config
 BUNDLE_PATH: vendor/bundle
 BUNDLE_BIN: vendor/bundle/bin
 BUNDLE_WITHOUT: development:test
