@@ -8,8 +8,8 @@ This is needed because projects are actually built somewhere like `/tmp/build_18
 
 Create this `.vendor_urls` file in the root of your project:
 
-    https://s3.amazonaws.com/diowa-buildpacks/geos-3.6.1-heroku.tar.gz
-    https://s3.amazonaws.com/diowa-buildpacks/proj-4.9.3-heroku.tar.gz
+    https://s3.amazonaws.com/diowa-buildpacks/geos-3.6.2-heroku.tar.gz
+    https://s3.amazonaws.com/diowa-buildpacks/proj-5.0.1-heroku.tar.gz
 
 
 Add this file to git and make sure it ends with a newline.
