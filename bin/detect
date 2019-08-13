@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# bin/detect <BUILD_DIR>
 
-echo "heroku-buildpack-rgeo-prep"
-exit 0
+set -eu -o pipefail
+
+echo 'Enable GEOS and PROJ.4 support for RGeo'

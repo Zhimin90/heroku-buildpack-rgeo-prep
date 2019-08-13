@@ -1,20 +1,26 @@
-#!/bin/sh
-# bin/compile <build-dir> <cache-dir>
+#!/usr/bin/env bash
+# bin/compile <BUILD_DIR> <CACHE_DIR> <ENV_DIR>
 
-echo "-----> Removing cached .bundle/config"
+set -eu -o pipefail
 
-if [ -f $2/.bundle/config ]; then
-  rm $2/.bundle/config
-fi
+BUILDPACK_DIR="$(dirname "$(dirname "$0")")"
+BUILD_DIR="$1"
+CACHE_DIR="$2"
 
-echo "       Writing new .bundle/config"
+VENDOR_DIR="/app/.heroku/vendor"
 
-mkdir -p $1/.bundle
-echo "---
-BUNDLE_FROZEN: \"true\"
-BUNDLE_PATH: \"vendor/bundle\"
-BUNDLE_BIN: \"vendor/bundle/bin\"
-BUNDLE_JOBS: \"4\"
-BUNDLE_CLEAN: \"false\"
-BUNDLE_WITHOUT: \"development:test\"
-BUNDLE_BUILD__RGEO: \"--with-opt-dir=$1 --with-geos-config=$1/bin/geos-config\"" > $1/.bundle/config
+echo '-----> Adding BUNDLE_BUILD__RGEO variable to environment'
+
+# write profile script
+mkdir -p $BUILD_DIR/.profile.d
+cat <<EOF >$BUILD_DIR/.profile.d/000_rgeo_prep.sh
+export BUNDLE_BUILD__RGEO="--with-opt-dir=$VENDOR_DIR --with-geos-config=$VENDOR_DIR/bin/geos-config"
+EOF
+
+# export to other buildpacks
+export BUNDLE_BUILD__RGEO="--with-opt-dir=$VENDOR_DIR --with-geos-config=$VENDOR_DIR/bin/geos-config"
+export | grep -E -e ' (BUNDLE_BUILD__RGEO)=' >"$BUILDPACK_DIR/export"
+
+echo `cat $BUILD_DIR/.profile.d/000_rgeo_prep.sh`
+echo `which geos-config`
+echo `ls /app/.heroku/vendor`
