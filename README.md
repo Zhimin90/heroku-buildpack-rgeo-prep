@@ -4,12 +4,37 @@ This buildpack overwrites Heroku's default .bundle/config to set BUNDLE_BUILD__R
 
 This is needed because projects are actually built somewhere like `/tmp/build_1890cktlpat5d`.
 
+## Deprecated
+
+Apparently, this buildpack does not work anymore. The latest undeprecated version
+is `v10`. If it still works in your use case, please use:
+
+```
+heroku buildpacks:set https://github.com/diowa/heroku-buildpack-rgeo-prep.git#v10
+```
+
+### Replace with heroku-buildpack-apt
+
+Please follow instructions at https://www.diowa.com/blog/heroku/2017/08/01/using-rgeo-with-geos-on-heroku-with-apt-get
+
+Please remember to remove `LD_LIBRARY_PATH` config variable.
+
+### Replace with diowa/heroku-buildpack-vendorbinaries
+
+Please follow instructions at https://github.com/diowa/heroku-buildpack-vendorbinaries
+
+Please remember to remove `LD_LIBRARY_PATH` config variable.
+
+```
+heroku config:unset LD_LIBRARY_PATH
+```
+
 ## Setup
 
 Create this `.vendor_urls` file in the root of your project:
 
     https://s3.amazonaws.com/diowa-buildpacks/geos-3.7.2-heroku.tar.gz
-    https://s3.amazonaws.com/diowa-buildpacks/proj-6.0.0-heroku.tar.gz
+    https://s3.amazonaws.com/diowa-buildpacks/proj-5.2.0-heroku.tar.gz
 
 
 Add this file to git and make sure it ends with a newline.
