@@ -7,6 +7,11 @@ if [ -f $2/.bundle/config ]; then
   rm $2/.bundle/config
 fi
 
+echo ""
+echo "       ### WARNING: THIS BUILDPACK HAS BEEN DEPRECATED"
+echo "       Please check https://git.io/fj5QW"
+echo ""
+
 echo "       Writing new .bundle/config"
 
 mkdir -p $1/.bundle
